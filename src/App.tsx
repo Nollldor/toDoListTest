@@ -24,6 +24,8 @@ function App() {
 
     const [inputValue, setInputValue] = useState<string>("")
 
+    const [error, setError] = useState<string | null>(null)
+
     const deleteTask = (tId: string) => {
         setTasks([...tasks.filter(el => el.id !== tId)])
     }
@@ -39,7 +41,18 @@ function App() {
 
     const addTask = (tasksTitle: string) => {
 
-        setTasks([{id: v1(), title: tasksTitle, isDone: false}, ...tasks])
+        if(tasksTitle.trim()){
+            setTasks([{id: v1(), title: tasksTitle.trim(), isDone: false}, ...tasks])
+        }else{
+            setError("can't be empty")
+        }
+    }
+
+    const changeTaskStatus = (tId:string, status:boolean) => {
+
+        const changeTask = tasks.find(el=>el.id===tId)
+        changeTask && (changeTask.isDone = status)
+        setTasks([...tasks])
     }
 
 
@@ -54,6 +67,9 @@ function App() {
                 addTask={addTask}
                 inputValue={inputValue}
                 setInputValue={setInputValue}
+                changeTaskStatus={changeTaskStatus}
+                error={error}
+                setError={setError}
             />
         </div>
     );

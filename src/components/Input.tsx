@@ -4,12 +4,15 @@ type InputPropsType = {
     addTask: (taskTitle: string) => void
     inputValue: string
     setInputValue: (inputValue: string) => void
+    setError: (error: null | string) => void
+    className: string
 }
 
-export const Input: React.FC<InputPropsType> = ({addTask, inputValue,setInputValue}) => {
+export const Input: React.FC<InputPropsType> = ({addTask, inputValue,setInputValue,setError,className}) => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.currentTarget.value)
+        setError(null)
     }
 
     const onEnterHandler = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -20,6 +23,6 @@ export const Input: React.FC<InputPropsType> = ({addTask, inputValue,setInputVal
     }
 
     return (
-        <input onChange={onChangeHandler} onKeyDown={onEnterHandler} value={inputValue}/>
+        <input className={className} onChange={onChangeHandler} onKeyDown={onEnterHandler} value={inputValue}/>
     )
 }

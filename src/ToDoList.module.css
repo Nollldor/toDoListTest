@@ -1,0 +1,22 @@
+.error {
+    height: 20px;
+    color: red;
+}
+
+.errorInput {
+    border: 3px solid red
+}
+
+.completedTask {
+    opacity: 0.5;
+}
+
+.activeButton {
+    background-color: aquamarine;
+    border: 1px solid black;
+}
+
+.deleteButton {
+    border: 1px solid black;
+    background-color: red;
+}
