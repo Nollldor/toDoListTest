@@ -14,7 +14,7 @@ type ToDoListPropsType = {
 export const ToDoList: React.FC<ToDoListPropsType> = (
     {title, tasks, deleteTask, filter, setFilter}) => {
 
-    const onClickDeleteHandler = (e: MouseEvent<HTMLButtonElement>, tID: string) => {
+    const onClickDeleteHandler = (tID: string) => {
         deleteTask(tID)
     }
 
@@ -35,7 +35,7 @@ export const ToDoList: React.FC<ToDoListPropsType> = (
                     return (
                         <li key={task.id}>
                             <input type={"checkbox"} checked={task.isDone}></input>
-                            <Button callback={(e) => onClickDeleteHandler(e, task.id)} title={"x"}/>
+                            <Button callback={() => onClickDeleteHandler(task.id)} title={"x"}/>
                             <span>{task.title}</span>
                         </li>
                     )

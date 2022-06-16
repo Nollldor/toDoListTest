@@ -2,13 +2,13 @@ import React, {MouseEvent} from "react";
 
 type ButtonPropsType = {
     title:string
-    callback: (e:MouseEvent<HTMLButtonElement>)=> void
+    callback: ()=> void
 }
 
 export const Button:React.FC<ButtonPropsType> = ({title,callback})=>{
 
-    const onClickHandler = (e:MouseEvent<HTMLButtonElement>)=>{
-        callback(e)
+    const onClickHandler = ()=>{
+        callback()
     }
 
     return(
