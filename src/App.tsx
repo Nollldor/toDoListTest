@@ -35,6 +35,11 @@ function App() {
         filteredTasks = tasks.filter(el => !el.isDone)
     }
 
+    const addTask = (tasksTitle: string) => {
+
+        setTasks([{id: v1(), title: tasksTitle, isDone: false}, ...tasks])
+    }
+
 
     return (
         <div className="App">
@@ -44,6 +49,7 @@ function App() {
                 deleteTask={deleteTask}
                 filter={filter}
                 setFilter={setFilter}
+                addTask={addTask}
             />
         </div>
     );
