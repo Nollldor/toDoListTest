@@ -22,6 +22,8 @@ function App() {
 
     const [filter, setFilter] = useState<FilterType>("all")
 
+    const [inputValue, setInputValue] = useState<string>("")
+
     const deleteTask = (tId: string) => {
         setTasks([...tasks.filter(el => el.id !== tId)])
     }
@@ -50,6 +52,8 @@ function App() {
                 filter={filter}
                 setFilter={setFilter}
                 addTask={addTask}
+                inputValue={inputValue}
+                setInputValue={setInputValue}
             />
         </div>
     );

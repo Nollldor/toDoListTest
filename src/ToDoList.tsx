@@ -2,6 +2,7 @@ import React, {MouseEvent} from "react";
 import {FilterType, TaskType} from "./App";
 import {Button} from "./components/Button";
 import {FullInput} from "./components/FullInput";
+import {Input} from "./components/Input";
 
 type ToDoListPropsType = {
     title: string
@@ -10,11 +11,13 @@ type ToDoListPropsType = {
     filter: FilterType
     setFilter: (filter: FilterType) => void
     addTask: (taskTitle: string) => void
+    inputValue: string
+    setInputValue: (inputValue: string) => void
 }
 
 
 export const ToDoList: React.FC<ToDoListPropsType> = (
-    {title, tasks, deleteTask, filter, setFilter, addTask}) => {
+    {title, tasks, deleteTask, filter, setFilter, addTask, inputValue, setInputValue}) => {
 
     const onClickDeleteHandler = (tID: string) => {
         deleteTask(tID)
@@ -24,12 +27,17 @@ export const ToDoList: React.FC<ToDoListPropsType> = (
         setFilter(filter)
     }
 
+    const addTaskHandler = () => {
+        addTask(inputValue)
+        setInputValue("")
+    }
 
     return (
         <div>
             <h3>{title}</h3>
-            <FullInput addTask={addTask}/>
-
+            {/*<FullInput addTask={addTask}/>*/}
+            <Input addTask={addTask} inputValue={inputValue} setInputValue={setInputValue}/>
+            <Button title={"+"} callback={addTaskHandler}/>
             <ul>
                 {tasks.map((task) => {
                     return (
