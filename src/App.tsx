@@ -1,51 +1,49 @@
 import React, {useState} from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {ToDoList} from "./components/ToDoList";
+import {ToDoList} from "./ToDoList";
 import {v1} from "uuid";
 
-export type TasksType = {
+export type TaskType = {
     id: string
     title: string
     isDone: boolean
 }
 
+export type FilterType = "all" | "complete" | "active"
+
+
 function App() {
-    let [tasks, setTasks] = useState<Array<TasksType>>([
-        {id: v1(), title: "HTML&CSS", isDone: true},
+
+    const [tasks, setTasks] = useState<TaskType[]>([
+        {id: v1(), title: "HTML&CSS", isDone: false},
         {id: v1(), title: "JS", isDone: true},
-        {id: v1(), title: "ReactJS", isDone: false},
-        {id: v1(), title: "Rest API", isDone: false},
-        {id: v1(), title: "GraphQL", isDone: false},
-    ]);
+        {id: v1(), title: "React", isDone: false},
+    ])
 
-    let resultTasks = tasks
+    const [filter, setFilter] = useState<FilterType>("all")
 
-    const deleteTask = (id: string) => {
-        resultTasks = tasks.filter(task => task.id !== id)
-        setTasks(resultTasks)
+    const deleteTask = (tId: string) => {
+        setTasks([...tasks.filter(el => el.id !== tId)])
     }
 
-    const addMessage = (title: string) => {
-        setTasks([{id: v1(), title: title, isDone: false}, ...resultTasks])
+    let filteredTasks = tasks
+    if (filter === "all") {
+        filteredTasks = tasks
+    } else if (filter === "complete") {
+        filteredTasks = tasks.filter(el => el.isDone)
+    } else {
+        filteredTasks = tasks.filter(el => !el.isDone)
     }
 
-    const changeCheck = (key: string, checked: boolean) => {
-        let changeCheckTAsk = tasks.find(task => task.id === key)
-        if (changeCheckTAsk) {
-            changeCheckTAsk.isDone = checked
-        }
-
-        setTasks([...tasks])
-    }
 
     return (
         <div className="App">
             <ToDoList
-                tasks={resultTasks}
+                title={"What to learn"}
+                tasks={filteredTasks}
                 deleteTask={deleteTask}
-                addMessage={addMessage}
-                changeCheck={changeCheck}
+                filter={filter}
+                setFilter={setFilter}
             />
         </div>
     );
